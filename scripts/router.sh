@@ -15,7 +15,7 @@ ip nat pool ovrld 172.16.1.29 172.16.1.29 prefix 24
 ip nat inside source list 1 pool ovrld overload
 
 access-list 1 permit 172.16.20.0 0.0.0.7
-access-list 1 permit 172.16.21.0 0.0.0.255
+access-list 1 permit 172.16.21.0 0.0.0.7
 
 ip route 0.0.0.0 0.0.0.0 172.16.1.254
 ip route 172.16.20.0 255.255.255.0 172.16.21.253
