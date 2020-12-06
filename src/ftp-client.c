@@ -70,12 +70,12 @@ int main(int argc, char **argv)
 	sprintf(pass_cmd, "pass %s\n", data->password);
 
 	logging(LOG, "Sending Username");
-	if (send_command(socket_fd, user_cmd, NULL, &code) != 0 || get_res_code(&code) != 331)
+	if (send_command(socket_fd, user_cmd, NULL, &code) != 0 || (get_res_code(&code) != 331) &&  get_res_code(&code) != 230)
 	{
 		logging(LOG, "Could not set username\n");
 		exit(1);
 	}
-	else
+	else if(get_res_code(&code) == 331)
 	{
 		logging(LOG, "Sending Password");
 		if (send_command(socket_fd, pass_cmd, NULL, &code) != 0 || get_res_code(&code) != 230)
@@ -132,7 +132,10 @@ int main(int argc, char **argv)
 	}
 
 	char retr_cmd[200];
-	sprintf(retr_cmd, "retr %s/%s\n", data->path, data->filename);
+	if(strcmp(data->path, data->filename) != 0)
+		sprintf(retr_cmd, "retr %s/%s\n", data->path, data->filename);
+	else
+		sprintf(retr_cmd, "retr %s\n", data->filename);
 
 	logging(LOG, "Requesting Retrieve File");
 	if (send_command(socket_fd, retr_cmd, NULL, &code) != 0 || get_res_code(&code) != 150)
