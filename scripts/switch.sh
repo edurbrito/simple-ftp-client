@@ -50,19 +50,19 @@ end
 
 # TUX 4 ETH1
 
-# conf t
-# interface fastethernet 0/8
-# switchport mode access
-# switchport access vlan 21
-# end
+conf t
+interface fastethernet 0/8
+switchport mode access
+switchport access vlan 21
+end
 
 # ROUTER
 
-# conf t
-# interface gigabitethernet 0/9
-# switchport mode access
-# switchport access vlan 20
-# end
+conf t
+interface fastethernet 0/9
+switchport mode access
+switchport access vlan 21
+end
 
 show vlan brief
 
